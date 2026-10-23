@@ -401,7 +401,11 @@ $('fcMic').onclick=()=>{if(!SR){add('Voice input isn\'t supported in this browse
  $('fcChatB').addEventListener('click',()=>{TITLE.textContent='Ask for a change';H.querySelectorAll('.fclnk').forEach(b=>b.classList.remove('on'))});
  PANEL.dataset.v='chat';
 })();
-})();// CS-006: press-and-hold (desktop 250ms / touch 400ms) then drag the ⚡ side tab vertically; clamped to viewport; saved per device.
+;(function(){/* CS-022 close fix: backdrop click + Esc close the chat; backdrop follows the panel */
+ const P=document.getElementById('fcChat');if(!P)return;let B=document.getElementById('fcBack');if(!B){B=document.createElement('div');B.id='fcBack';P.parentNode.insertBefore(B,P)}
+ const X=()=>{const x=P.querySelector('[data-c=x]');if(x)x.click();else P.classList.remove('on')};
+ const sync=()=>B.classList.toggle('on',P.classList.contains('on'));new MutationObserver(sync).observe(P,{attributes:true,attributeFilter:['class']});sync();
+ B.addEventListener('click',X);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&P.classList.contains('on')&&!document.querySelector('.fclight,.cclight')){X()}});})();})();// CS-006: press-and-hold (desktop 250ms / touch 400ms) then drag the ⚡ side tab vertically; clamped to viewport; saved per device.
 (function(){const b=document.getElementById('fcChatB');if(!b)return;const K='dpb_fc_tab_y';
  const clamp=y=>Math.max(8+b.offsetHeight/2,Math.min(innerHeight-8-b.offsetHeight/2,y));
  const put=y=>{b.style.top=clamp(y)+'px'};const sv=parseFloat(localStorage.getItem(K));if(!isNaN(sv))put(sv);

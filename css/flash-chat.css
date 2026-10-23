@@ -164,7 +164,7 @@ body.dark #fcChat .cseg{background:#2a2a33}body.dark #fcChat .cseg button{color:
 @media(max-width:600px){#fcChat .ch{gap:2px}#fcChat .ch b{font-size:15px;margin-right:4px}#fcChat .ch button{font-size:12px;padding:4px 3px!important}#fcChat .ch .fcx{margin-left:0;flex:none}#fcChat .cbtns{justify-content:space-between!important}}
 @media(max-width:600px){#fcChat .ch .fcico{display:none}}#fcChat:not([data-v=chat]) #fcIncl{display:none!important}
 /* CS-022 follow-up: match CRM live changechat.css (CRM main 23ef594) look + layout; Party Bike red only on buttons/badges */
-#fcChat{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif!important;font-size:14px;color:#1d2329!important;width:min(760px,calc(100vw - 40px))!important;max-height:min(88vh,900px)!important;height:auto!important;border-radius:14px!important;box-shadow:0 0 0 100vmax rgba(15,20,25,.55),0 18px 50px rgba(0,0,0,.35)!important;display:flex!important;flex-direction:column}
+#fcChat{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif!important;font-size:14px;color:#1d2329!important;width:min(760px,calc(100vw - 40px))!important;max-height:min(88vh,900px)!important;height:auto!important;border-radius:14px!important;box-shadow:0 18px 50px rgba(0,0,0,.35)!important;flex-direction:column}
 #fcChat button,#fcChat textarea,#fcChat input,#fcChat select{font-family:inherit}
 #fcChat:not([data-v=chat]){height:min(88vh,900px)!important}
 #fcChat[data-v=chat] #fcCB{flex:0 1 auto!important;min-height:0;overflow:auto;height:auto!important;max-height:none}
@@ -202,3 +202,6 @@ body.dark #fcChat .cseg{background:#2a2a33}body.dark #fcChat .cseg button{color:
 @media(max-width:640px){#fcChat[data-v=chat] #fcCB{flex:0 1 auto!important}#fcChat .ch .fcico{display:inline!important}}
 @media(max-width:380px){#fcChat .ch b{font-size:14px!important}#fcChat .ch button{font-size:11.5px!important;padding:2px 2px!important}}
 @media(max-width:640px){#fcChat:not([data-v=chat]){height:100vh!important;height:100dvh!important}}
+/* CS-022 close fix: panel hidden unless .on; real backdrop (click closes) */
+#fcChat:not(.on){display:none!important}#fcChat.on{display:flex!important}
+#fcBack{position:fixed;inset:0;z-index:7000;background:rgba(15,20,25,.55);display:none}#fcBack.on{display:block}
