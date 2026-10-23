@@ -50,3 +50,14 @@ label.f{display:block;font-weight:700;font-size:.9rem;margin:10px 0 4px}input.f,
 .note{font-size:.85rem;color:var(--muted)}.chk{display:flex;gap:10px;align-items:flex-start;margin:8px 0}
 .nav ul{gap:18px}.nav ul a{white-space:nowrap}.cal{max-width:460px}.cal button{aspect-ratio:auto;height:44px}
 @media(max-width:1100px){.nav ul{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:#fff;padding:16px 20px;border-bottom:1px solid var(--line)}.nav ul.show{display:flex}.burger{display:block}}
+/* header fixes */
+.nav .act{flex-shrink:0;flex-wrap:nowrap}.btn{white-space:nowrap}
+.nav .act .btn.sm,.loginbtn{height:40px;padding:0 16px;font-size:.9rem}
+.loginbtn{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;background:#fff;color:var(--ink);border:1px solid #ddd3cc;border-radius:999px;font:inherit;font-weight:700;font-size:.9rem;cursor:pointer;transition:.2s}
+.loginbtn:hover{border-color:var(--red);color:var(--red)}
+button:focus,a:focus{outline:none}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(215,38,30,.45);outline-offset:2px}
+@media(max-width:1180px){.nav ul{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:#fff;padding:16px 20px;border-bottom:1px solid var(--line)}.nav ul.show{display:flex}.burger{display:block}}
+@media(max-width:520px){.nav .act .btn.book{display:none}.nav .logo img{height:40px}}
+@media(min-width:521px){.nav .act .btn.book{display:inline-flex}}
+.nav .act .btn.sm{display:inline-flex;align-items:center;justify-content:center;line-height:1}@media(max-width:520px){.nav .act .btn.book{display:none}}
+.nav .act .btn.book{display:inline-block;line-height:40px;padding:0 18px;text-align:center}@media(max-width:520px){.nav .act .btn.book{display:none}}

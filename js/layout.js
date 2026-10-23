@@ -2,7 +2,7 @@
 const links=[["tours.html","Tours"],["book.html","Book"],["reviews.html","Reviews"],["faq.html","FAQ & Rules"],["gift-cards.html","Gift Cards"],["about.html","About"],["contact.html","Contact"]];
 document.body.insertAdjacentHTML('afterbegin',`<header class="top"><div class="wrap nav"><a class="logo" href="index.html"><img src="assets/logo.png" alt="Dallas Party Bike"></a>
 <ul id="menu">${links.map(([h,t])=>`<li><a href="${h}" class="${h==here?'on':''}">${t}</a></li>`).join('')}</ul>
-<div class="act"><div class="login" id="login"><button class="btn ghost sm" onclick="this.parentNode.classList.toggle('open')">Log in ▾</button><div class="login-menu">
+<div class="act"><div class="login" id="login"><button class="loginbtn" aria-haspopup="true" onclick="this.parentNode.classList.toggle('open')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Log in<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="login-menu">
 <a href="${base}/portal?tenant=${DPB.tenant.id}">🎉 Customer<small>Manage booking, waivers, receipts</small></a>
 <a href="${base}/crew?tenant=${DPB.tenant.id}">🚲 Crew<small>Today's rides, check-ins, tips</small></a>
 <a href="${base}/demo.html?tenant=${DPB.tenant.id}">📊 Owner<small>FlashDash dashboard</small></a></div></div>
