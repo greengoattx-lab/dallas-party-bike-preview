@@ -1,6 +1,6 @@
 // Owner gate. CLIENT-SIDE ONLY (not real security) — replace with FlashDash/Render auth.
 // Only a SHA-256 hash of the owner password is stored here.
-(function(){const H='3b31b4bfe5aeacf352d575a65048810eed4876334dbeb225656efaf5dfb85165',K='dpb_owner';
+(function(){const H='5b9ece82373add323aa4749c16c862dbd0ca19c78f4be38800cbf8979dc82e5a',K='dpb_owner';
 async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 /* CS-023: per-site chat config + the ONE switch point for the shared, CRM-hosted chatbot.
    When the shared file goes live, set sharedScript/sharedCss to its real URLs (from Chris/CRM). Leave them '' to use this site's local copy.
