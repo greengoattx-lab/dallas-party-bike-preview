@@ -207,4 +207,16 @@ window.fcRecDemo=(on,txt)=>{if(txt!=null){CI.value=txt;fit()}on?recOn():recOff()
 $('fcMic').onclick=()=>{if(!SR){add('Voice input isn\'t supported in this browser — please type your request (Chrome, Edge or Safari support the mic).');return}
  if(rec){rec.stop();return}rec=new SR();rec.lang='en-US';rec.interimResults=true;rec.continuous=true;const base=CI.value?CI.value+' ':'',g=recGen;
  rec.onresult=e=>{if(g!=recGen)return;let s='';for(const r of e.results)s+=r[0].transcript;CI.value=base+s;fit()};rec.onend=()=>{rec=null;recOff()};rec.onerror=()=>{};rec.start();recOn()};
-})();
+})();// CS-006: press-and-hold (desktop 250ms / touch 400ms) then drag the ⚡ side tab vertically; clamped to viewport; saved per device.
+(function(){const b=document.getElementById('fcChatB');if(!b)return;const K='dpb_fc_tab_y';
+ const clamp=y=>Math.max(8+b.offsetHeight/2,Math.min(innerHeight-8-b.offsetHeight/2,y));
+ const put=y=>{b.style.top=clamp(y)+'px'};const sv=parseFloat(localStorage.getItem(K));if(!isNaN(sv))put(sv);
+ addEventListener('resize',()=>{if(b.style.top)put(parseFloat(b.style.top))});
+ let t=0,drag=false,armed=false,y0=0,sup=false;
+ b.addEventListener('pointerdown',e=>{if(e.button)return;y0=e.clientY;drag=false;armed=false;clearTimeout(t);
+  t=setTimeout(()=>{armed=true;b.classList.add('fcdrag');try{b.setPointerCapture(e.pointerId)}catch(_){}if(navigator.vibrate)navigator.vibrate(15)},e.pointerType=='touch'?400:250)});
+ b.addEventListener('pointermove',e=>{if(!armed){if(Math.abs(e.clientY-y0)>8)clearTimeout(t);return}e.preventDefault();drag=true;put(e.clientY)});
+ const end=()=>{clearTimeout(t);if(armed){b.classList.remove('fcdrag');if(drag){sup=true;localStorage.setItem(K,parseFloat(b.style.top))}else sup=true}armed=false;drag=false};
+ b.addEventListener('pointerup',end);b.addEventListener('pointercancel',end);
+ b.addEventListener('click',e=>{if(sup){sup=false;e.stopImmediatePropagation();e.preventDefault()}},true);
+ b.addEventListener('contextmenu',e=>e.preventDefault());})();
