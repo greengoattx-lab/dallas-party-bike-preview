@@ -72,4 +72,5 @@ body.dark #fcChat .cseg{background:#2a2a33}body.dark #fcChat .cseg button{color:
 #fcChat .msg.draft details.said{all:unset;display:block;font-size:11px;color:#6b6b76;margin:5px 0 4px}#fcChat .msg.draft details.said summary{all:unset;cursor:pointer;display:inline;font-size:11px;font-weight:400;color:#6b6b76}#fcChat .msg.draft details.said summary::before{content:"▸ "}#fcChat .msg.draft details.said[open] summary::before{content:"▾ "}#fcChat .msg.draft details.said summary::-webkit-details-marker,#fcChat .msg.draft details.said summary::after{display:none;content:none}
 #fcChat .msg.draft .acts{gap:6px;margin-top:4px;flex-wrap:wrap}#fcChat .msg.draft .acts button{padding:5px 10px;font-size:12px;border-radius:8px}
 @media (max-width:420px){#fcChat .msg.draft .acts{gap:4px;flex-wrap:nowrap}#fcChat .msg.draft .acts button{padding:5px 7px;font-size:11px;white-space:nowrap}}
-#fcChat .msg.draft .acts{flex-wrap:nowrap!important}@media (max-width:420px){#fcChat .msg.draft .acts [data-a=over]{display:none}}/* Start over stays reachable via Edit / No, let me fix it (CS-008 fix card) */
+#fcChat .msg.draft .acts{flex-wrap:nowrap!important}/* Start over stays reachable via Edit / No, let me fix it (CS-008 fix card) */
+/* CS-014 */#fcChat .mic{display:inline-flex!important;visibility:visible!important}#fcChat .mic.nosr{opacity:.45;filter:grayscale(1);cursor:not-allowed}
