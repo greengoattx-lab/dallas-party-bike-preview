@@ -65,3 +65,5 @@ button:focus,a:focus{outline:none}button:focus-visible,a:focus-visible,input:foc
 .hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .hero::after{z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(20,5,3,.88))}
 @media (prefers-reduced-motion:reduce){.hero-vid{display:none}}
+#dpbLogout{position:fixed;left:14px;bottom:14px;z-index:7000;height:36px;padding:0 14px}
+@media(max-width:700px){#dpbLogout{bottom:auto;top:var(--hdrb,92px);left:10px;height:30px;padding:0 12px;font-size:.8rem;box-shadow:0 2px 8px rgba(0,0,0,.15)}}
