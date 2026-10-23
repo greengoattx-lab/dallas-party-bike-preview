@@ -61,3 +61,6 @@ body.dark #fcChat .cseg{background:#2a2a33}body.dark #fcChat .cseg button{color:
 #fcChat .fcboard .it,#fcChat .fcship div{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:4px 0;border-top:1px solid #eee}
 #fcChat .fcvote.on{background:#FDECEB;border-color:#D7261E}
 #fcChat .fcplog{margin:4px 0 8px;font-size:.8rem}
+
+/* CS-010: full-width message box on its own row; screenshots above; buttons below */
+#fcChat .ci{flex-direction:column;align-items:stretch;flex-wrap:nowrap}#fcChat .ci #fcAtt{order:1}#fcChat .ci .recl{order:2}#fcChat .ci textarea{order:3;width:100%;box-sizing:border-box;flex:none;min-height:64px;height:64px;max-height:150px}#fcChat .ci .cbtns{order:4;display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
