@@ -1,4 +1,5 @@
 {
   "biz": "dpb-site",
-  "approval_mode": "owner"
+  "approval_mode": "owner",
+  "customer_publish_button": true
 }

@@ -41,4 +41,10 @@ body.dark #fcChat .cseg{background:#2a2a33}body.dark #fcChat .cseg button{color:
 #fcBack{position:fixed;inset:0;background:rgba(10,10,20,.5);z-index:7000;display:none}#fcBack.on{display:block}
 #fcChat{left:50%;top:50%;right:auto;bottom:auto;transform:translate(-50%,-50%);width:min(760px,max(70vw,420px),calc(100vw - 32px));height:85vh;max-height:none}
 #fcChat.small{left:auto;top:auto;right:20px;bottom:90px;transform:none;width:min(420px,calc(100vw - 32px));height:min(640px,calc(100vh - 120px))}
-@media(max-width:600px){#fcChat,#fcChat.small{left:0;top:0;right:0;bottom:0;transform:none;width:auto;height:auto;border-radius:0}}
+@media(max-width:600px){#fcChat,#fcChat.small{left:0;top:0;right:0;bottom:0;transform:none;width:auto;height:auto;border-radius:0}}#fcChat .appub{display:flex;gap:12px;align-items:center;justify-content:space-between;border:1px dashed #f59e0b;border-radius:10px;padding:10px 12px;margin:8px 0;background:#fffbeb}
+#fcChat .appub small{display:block;opacity:.75;font-size:.8rem}
+#fcChat .appub small.appubok{opacity:1;color:#15803d}
+#fcChat .aptmp{background:#fde68a;color:#78350f;border-radius:6px;padding:1px 6px;font-size:.7rem;font-weight:700}
+#fcChat .appubbtn{background:#f59e0b;color:#111;border:0;border-radius:8px;padding:9px 14px;font-weight:700;cursor:pointer;white-space:nowrap}
+#fcChat .appubbtn:disabled{opacity:.45;cursor:default}
+#fcChat .apsec .it{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-top:1px solid #eee}
