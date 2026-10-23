@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Book Your Ride | Dallas Party Bike</title><meta name="description" content="Book a Dallas party bike ride."><link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css"><script src="js/data.js"></script></head><body><div class="page-hero"><div class="wrap"><span class="eyebrow">Dallas Party Bike</span><h1>Book your ride</h1><p>Pick a package, date and time — secure your spot in minutes.</p></div></div>
+<section><div class="wrap book"><form id="flow" onsubmit="checkout(event)">
+<div class="panel"><h3><span>1</span>Choose your ride</h3><div class="opts" id="pk"></div></div>
+<div class="panel"><h3><span>2</span>Pick a date</h3><div class="calhead"><button type=button onclick="mon(-1)">‹</button><b id="mlabel"></b><button type=button onclick="mon(1)">›</button></div><div class="cal" id="cal"></div></div>
+<div class="panel"><h3><span>3</span>Pick a time</h3><div class="opts" id="sl"></div></div>
+<div class="panel"><h3><span>4</span>Riders</h3><p id="qlabel" class="note">Choose a package first.</p><div class="qty"><button type=button onclick="adj(-1)">−</button><output id="q">—</output><button type=button onclick="adj(1)">+</button></div></div>
+<div class="panel"><h3><span>5</span>Your details & waiver</h3><label class="f">Full name</label><input class="f" id="cn" required><label class="f">Email</label><input class="f" id="ce" type="email" required><label class="f">Mobile (for waiver links)</label><input class="f" id="cp" required>
+<label class="f">Occasion</label><select class="f" id="co"><option>Birthday</option><option>Bachelorette</option><option>Bachelor</option><option>Corporate</option><option>Holiday</option><option>Just for fun</option></select>
+<label class="chk"><input type="checkbox" id="w1" required> I agree to the ride rules: BYOB beer/wine/seltzers only, no glass or hard liquor, arrive 20 min early, lightning = cancel with full refund or rain check, cancel/reschedule at least 14 days out.</label>
+<label class="chk"><input type="checkbox" id="w2" required> Every rider will show a photo ID (21+ for seat bookings) and sign the waiver before boarding.</label>
+<p class="note"><span class="ph-tag">PLACEHOLDER</span> Full waiver text — e-sign via FlashDash customer portal.</p></div>
+<div class="panel"><h3><span>6</span>Checkout</h3><p class="note">Secure payment via Stripe <span class="ph-tag">PLACEHOLDER</span></p><button class="btn">Continue to secure checkout →</button></div></form>
+<aside class="panel summary" id="sum"></aside></div></section><script src="js/layout.js"></script><script src="js/booking.js"></script></body></html>
