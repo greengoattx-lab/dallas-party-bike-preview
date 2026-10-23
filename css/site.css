@@ -62,3 +62,6 @@ button:focus,a:focus{outline:none}button:focus-visible,a:focus-visible,input:foc
 .nav .act .btn.sm{display:inline-flex;align-items:center;justify-content:center;line-height:1}@media(max-width:520px){.nav .act .btn.book{display:none}}
 .nav .act .btn.book{display:inline-block;line-height:40px;padding:0 18px;text-align:center}@media(max-width:520px){.nav .act .btn.book{display:none}}
 .page-hero .eyebrow,.hero .eyebrow,.dark .eyebrow,.redbg .eyebrow{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(4px)}
+.hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero::after{z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(20,5,3,.88))}
+@media (prefers-reduced-motion:reduce){.hero-vid{display:none}}

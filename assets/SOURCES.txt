@@ -15,3 +15,4 @@ big-group.jpg  <-  https://dallaspartybike.com/wp-content/uploads/.../photo-5.we
 patriotic.jpg  <-  https://dallaspartybike.com/wp-content/uploads/.../photo-7.webp
 shotgun.jpg  <-  https://dallaspartybike.com/wp-content/uploads/.../photo-8.webp
 logo.png  <-  https://dallaspartybike.com/wp-content/uploads/.../logo-e1756266993960.webp
+hero.mp4 from https://dallaspartybike.com/wp-content/uploads/2026/06/hero-Background-Video.mp4 (re-encoded 720p, muted)

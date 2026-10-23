@@ -6,7 +6,7 @@ tail='<script src="js/layout.js"></script><script src="js/owner.js"></script>{js
 def ph(title,sub): return f'<div class="page-hero"><div class="wrap"><span class="eyebrow">Dallas Party Bike</span><h1>{title}</h1><p>{sub}</p></div></div>'
 pages={}
 pages['index.html']=("Dallas Party Bike | The Most Fun Thing to Do in Dallas","Pedal-powered pub crawls and private party bike rides in Deep Ellum, Dallas.",'''
-<section class="hero"><div class="bg" style="background-image:url(assets/group-mural.jpg)"></div><div class="wrap"><span class="eyebrow">Deep Ellum · Dallas, TX</span>
+<section class="hero"><div class="bg" style="background-image:url(assets/group-mural.jpg)"></div><video class="hero-vid" autoplay muted loop playsinline preload="metadata" poster="assets/group-mural.jpg" aria-hidden="true"><source src="assets/hero.mp4" type="video/mp4"></video><div class="wrap"><span class="eyebrow">Deep Ellum · Dallas, TX</span>
 <h1>The most fun thing<br>to do in Dallas.</h1><p class="lead">Birthdays, bachelorettes, bachelors, reunions and team building — pedal, party and bar-hop through Deep Ellum on a 15-seat party bike. BYOB, music, lights, and a captain who brings the energy.</p>
 <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px"><a class="btn" href="book.html">Book your ride</a><a class="btn ghost" href="tours.html">See tours</a></div>
 <div class="trust"><div><b>1,403 reviews</b>Rated “Excellent”</div><div><b>5.0 ★ Tripadvisor</b>Private rental · 244 reviews</div><div><b>6 bikes</b>Groups of 6 to 90</div></div></div></section>

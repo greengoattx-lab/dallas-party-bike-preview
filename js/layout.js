@@ -19,3 +19,4 @@ window.pkgPrice=p=>p.priceFrom?`<span class="price">From ${money(p.priceFrom)} <
 window.pkgCard=p=>`<div class="card"><div class="ph" style="background-image:url(${p.img})"><span class="badge">${p.badge}</span></div><div class="bd"><h3>${p.name}</h3><p>${p.blurb}</p><div class="note">⏱ ${p.durationHrs} hours · ${p.minRiders}–${p.maxRiders} riders</div>${pkgPrice(p)}<a class="btn" href="book.html?pkg=${p.id}">Book ${p.type=='seats'?'seats':'this ride'}</a></div></div>`;
 window.reviewCard=r=>`<div class="review"><div style="font-size:2.4rem;color:var(--red);line-height:.5;font-family:Georgia">“</div><p>“${r.text}”</p><div class="who">${r.name}</div><div class="src">${r.src}${r.date?' · '+r.date:''} · ${r.tag}</div></div>`;
 })();
+(function(){var v=document.querySelector('.hero-vid');if(v&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){v.pause();v.removeAttribute('autoplay');v.remove();}})();
