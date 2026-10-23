@@ -2,7 +2,13 @@
 // Only a SHA-256 hash of the owner password is stored here.
 (function(){const H='3b31b4bfe5aeacf352d575a65048810eed4876334dbeb225656efaf5dfb85165',K='dpb_owner';
 async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
-function loadChat(){if(document.getElementById('fcChatB'))return;const l=document.createElement('link');l.rel='stylesheet';l.href='css/flash-chat.css';document.head.appendChild(l);const s=document.createElement('script');s.src='js/flash-chat.js';document.body.appendChild(s);
+/* CS-023: per-site chat config + the ONE switch point for the shared, CRM-hosted chatbot.
+   When the shared file goes live, set sharedScript/sharedCss to its real URLs (from Chris/CRM). Leave them '' to use this site's local copy.
+   Never put API keys or secrets here; this file is public. */
+window.FLASHCHAT_CONFIG=window.FLASHCHAT_CONFIG||{siteId:'partybike',siteName:'Dallas Party Bike',brandColor:'#D7261E',flashes:true,
+ endpoints:{chatAi:'/api/chat-ai',approvals:''},
+ sharedScript:'',sharedCss:''};
+function loadChat(){if(document.getElementById('fcChatB'))return;const C=window.FLASHCHAT_CONFIG;const l=document.createElement('link');l.rel='stylesheet';l.href=C.sharedCss||'css/flash-chat.css';document.head.appendChild(l);const s=document.createElement('script');s.src=C.sharedScript||'js/flash-chat.js';document.body.appendChild(s);
  const lo=document.createElement('button');lo.id='dpbLogout';lo.className='loginbtn';lo.textContent='Owner · Log out';const ph=()=>{const h=document.querySelector('header.top');lo.style.setProperty('--hdrb',((h?h.getBoundingClientRect().bottom:64)+8)+'px')};ph();addEventListener('resize',ph);lo.onclick=()=>{sessionStorage.removeItem(K);location.reload()};document.body.appendChild(lo)}
 function modal(){if(document.getElementById('dpbOwn'))return;document.body.insertAdjacentHTML('beforeend',`<div id="dpbOwn" style="position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.55);display:grid;place-items:center;padding:16px"><form class="panel" style="width:min(380px,100%);margin:0" autocomplete="on"><h3>Owner log in</h3><label class="f">Email</label><input class="f" type="email" name="email" autocomplete="username" required><label class="f">Password</label><input class="f" type="password" name="pw" autocomplete="current-password" required><p class="note" id="dpbErr" style="color:var(--red);min-height:1.2em"></p><div style="display:flex;gap:10px"><button class="btn sm">Log in</button><button type="button" class="btn ghost sm" id="dpbCancel">Cancel</button></div></form></div>`);
  const w=document.getElementById('dpbOwn'),f=w.querySelector('form');document.getElementById('dpbCancel').onclick=()=>w.remove();w.onclick=e=>{if(e.target==w)w.remove()};

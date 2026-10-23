@@ -108,3 +108,58 @@ body.dark #fcChat .cseg{background:#2a2a33}body.dark #fcChat .cseg button{color:
 #fcChat .fcpast{border:1px solid #e2e2ea;border-radius:8px;padding:4px 8px;margin:4px 0}#fcChat .fcpastc{opacity:.85;font-size:13px}
 #fcChat .fca .fcabh{display:none!important}
 #fcChat .fcap .fcba{display:grid!important;grid-template-columns:1fr 1fr;gap:6px}#fcChat .fcap .fcba img{height:80px!important;max-height:80px;width:100%;object-fit:cover}#fcChat .fcap .fcba .col{min-width:0}
+/* CS-021..027: CRM gold-standard look, fixed window */
+#fcChat{--fcb:var(--brand,#D7261E);width:min(760px,calc(100vw - 32px))!important;height:min(80vh,820px)!important;max-height:min(80vh,820px)!important;left:50%!important;right:auto!important;top:50%!important;bottom:auto!important;transform:translate(-50%,-50%);border-radius:16px!important;background:#fff!important;color:#1f1f26;overflow:hidden}
+@media(max-width:600px){#fcChat{width:100vw!important;height:100vh!important;height:100dvh!important;max-height:none!important;left:0!important;top:0!important;transform:none;border-radius:0!important}}
+#fcChat .ch{background:#fff!important;color:#1f1f26!important;border-bottom:1px solid #e6e6ec;padding:14px 18px!important;display:flex;align-items:center;gap:10px}
+#fcChat .ch b{font-size:19px;font-weight:700;color:#1f1f26}
+#fcChat .ch .fcsite{background:#fdecea;color:var(--fcb);font-size:12px;padding:2px 9px;border-radius:999px;white-space:nowrap}
+#fcChat .ch .fcsp{flex:1}
+#fcChat .ch button{background:none!important;border:0!important;color:#1a63b8!important;font-size:14px;padding:4px 4px!important;cursor:pointer;box-shadow:none!important}
+#fcChat .ch button.on{text-decoration:underline}
+#fcChat .ch .fcx{color:#555!important;font-size:18px;margin-left:6px}
+#fcChat #fcSeg,#fcChat .ctype,#fcChat .fcback{display:none!important}
+#fcChat .cincl{font-size:11px!important;margin:8px 18px 0!important;opacity:.75}
+#fcChat #fcCB{padding:10px 18px}
+#fcChat #fcCB>.msg.bot:first-child{background:none!important;padding:0!important;font-size:17px;font-weight:700;margin:6px 0}
+#fcChat .ci{border-top:0!important;padding:4px 18px 16px!important}
+#fcChat .ci textarea{min-height:84px;border:2px solid #1f1f26!important;border-radius:10px!important;font-size:15px}
+#fcChat .cbtns{display:flex!important;justify-content:space-between;align-items:center;width:100%;margin-top:10px}
+#fcChat .fcleft{display:flex;gap:8px;align-items:center}
+#fcChat .cbtns .fcclip{width:38px;height:38px;border-radius:50%!important;padding:0!important;border:1px solid #cfcfd8;background:#fff;font-size:16px}
+#fcChat .cbtns .fctalk{border-radius:999px!important;border:1px solid #cfcfd8!important;background:#fff!important;padding:7px 14px!important;font-size:14px;width:auto!important;height:auto!important;color:#1f1f26}
+#fcChat .cbtns .fctalk.rec{background:#fdecea!important;border-color:var(--fcb)!important}
+#fcChat #fcSend{background:var(--fcb)!important;border-radius:8px;padding:9px 22px;font-weight:700}
+#fcChat:not([data-v=chat]) .fcview{padding:12px 18px}
+#fcChat .fcrows{display:flex;flex-direction:column;gap:8px}
+#fcChat .fcrow{border:1px solid #e2e2ea;border-radius:8px;background:#fff}
+#fcChat .fcrowh{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;cursor:pointer}
+#fcChat .fcrowh code{color:var(--fcb);font-weight:700;font-size:13px;white-space:nowrap}
+#fcChat .fcrowh .fct{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}
+#fcChat .fcrowh .fcd{color:#777;font-size:12px;white-space:nowrap}
+#fcChat .fcw{font-weight:700;font-size:13px;white-space:nowrap;padding:1px 5px;border-radius:4px}
+.fcw-green{color:#11743a;background:#dcf5e3}.fcw-amber{color:#8a5a00;background:#fff3c4}.fcw-purple{color:#5a2bbf;background:#ece3ff}.fcw-blue{color:#1b4fa0;background:#e2efff}.fcw-grey{color:#555;background:#ececf2}
+#fcChat .fcdet{padding:0 12px 12px;border-top:1px solid #eee}
+#fcChat .fcdet ul{margin:8px 0;padding-left:18px}#fcChat .fcdet li{margin:6px 0;display:flex;flex-wrap:wrap;gap:6px;justify-content:space-between;align-items:center}
+#fcChat .fcia{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+#fcChat .fcsteps{display:flex;flex-wrap:wrap;gap:4px;align-items:center;font-size:12px;margin:6px 0}#fcChat .fcsteps span{padding:2px 7px;border-radius:999px;color:#777}#fcChat .fcsteps span.done{background:#dcf5e3;color:#11743a}#fcChat .fcsteps span.cur{background:#fff3c4;color:#8a5a00;font-weight:700}#fcChat .fcsteps i{color:#bbb;font-style:normal}
+#fcChat .fcphotos .fcba{display:flex!important;gap:10px;flex-wrap:wrap}#fcChat .fcphotos .fcba .col{flex:0 1 240px;max-width:240px;min-width:0}#fcChat .fcphotos img{max-width:240px!important;width:100%;height:auto!important;max-height:180px;object-fit:cover}
+@media(max-width:600px){#fcChat .fcphotos .fcba .col{flex-basis:calc(50% - 5px)}}
+#fcChat .fcend,#fcChat .fcempty{text-align:center;margin:14px 0;color:#777}
+#fcChat .fcfoot{display:flex;justify-content:flex-end;gap:8px;border-top:1px solid #eee;padding-top:10px;margin-top:10px}
+#fcChat .fcfoot .pri,#fcChat .fcia .pri{background:var(--fcb);color:#fff;border:0;border-radius:8px;padding:7px 14px;font-weight:700;cursor:pointer}
+#fcChat .fcbusy .fcprog{height:5px;background:#eee;border-radius:3px;overflow:hidden;margin-top:6px}#fcChat .fcbusy .fcprog span{display:block;height:100%;width:40%;background:var(--fcb);animation:fcprog 1.6s infinite ease-in-out}@keyframes fcprog{0%{margin-left:-40%}100%{margin-left:100%}}
+#fcChat .fccomi{background:#f2f3f7;border-radius:10px;padding:10px 12px;margin-bottom:10px}
+#fcChat .fcship{background:#e9f6ec;border:1px solid #b9e2c4;border-radius:10px;padding:10px 12px;margin-bottom:10px}
+#fcChat .fctrend{background:#fff4e6;border:1px solid #f5cf9c;border-radius:10px;padding:10px 12px;margin-bottom:10px}
+#fcChat .fcl{display:flex;justify-content:space-between;gap:8px;margin-top:4px;font-size:14px}
+#fcChat .fch3{display:block;margin-top:6px}
+#fcChat .fcrank{display:flex;align-items:center;gap:12px;border:1px solid #e2e2ea;border-radius:8px;padding:10px 12px;margin-top:8px}#fcChat .fcrank>b{color:var(--fcb)}#fcChat .fcrank span{flex:1;display:flex;flex-direction:column}
+#fcChat .fcvote{border-radius:999px!important}
+#fcChat .fcerr{background:#fff7e6!important}
+#fcChat .fcfix .fclink{all:unset;color:#b3261e;text-decoration:underline;cursor:pointer;font-size:13px}
+#fcChat .fcia button:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(1)}
+#fcChat .fcia .sec,#fcChat .fcfoot .sec{background:#fff;border:1px solid #cfcfd8;border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600;color:#1f1f26}
+@media(max-width:600px){#fcChat .ch{padding:10px 12px!important;gap:6px}#fcChat .ch b{font-size:16px;white-space:nowrap}#fcChat .ch .fcsite{display:none}#fcChat .ch button{font-size:13px;white-space:nowrap}}
+@media(max-width:600px){#fcChat .ch{gap:2px}#fcChat .ch b{font-size:15px;margin-right:4px}#fcChat .ch button{font-size:12px;padding:4px 3px!important}#fcChat .ch .fcx{margin-left:0;flex:none}#fcChat .cbtns{justify-content:space-between!important}}
+@media(max-width:600px){#fcChat .ch .fcico{display:none}}#fcChat:not([data-v=chat]) #fcIncl{display:none!important}

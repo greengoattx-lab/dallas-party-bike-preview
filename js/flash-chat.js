@@ -332,6 +332,75 @@ $('fcMic').onclick=()=>{if(!SR){add('Voice input isn\'t supported in this browse
  CB.addEventListener('click',e=>{const t=e.target;if(t.dataset&&t.dataset.a=='edit'){const d=t.closest('.draft');if(d)d.classList.add('editing')}},true);
  PANEL.dataset.v='chat';
 })();
+/* CS-021..CS-027: CRM-matched layout, Community board, merged My requests, publish lock, plain statuses, fixed size. */
+(function(){const CFG=window.FLASHCHAT_CONFIG||{};const SITE=CFG.siteName||'Dallas Party Bike';
+ const H=PANEL.querySelector('.ch');H.innerHTML=`<b>Ask for a change</b><span class="fcsite">${esc(SITE)}</span><span class="fcsp"></span><button data-c="board" class="fclnk"><span class="fcico">📋 </span>Community</button><button data-c="list" class="fclnk">My requests</button><button data-c="x" class="fcx" aria-label="Close">✕</button>`;
+ PANEL.classList.remove('small');
+ SEG.hidden=true;SEG.style.display='none';const TYL=PANEL.querySelector('.ctype');if(TYL)TYL.remove();
+ CI.placeholder='Type here, or tap the mic and talk';PH.change=CI.placeholder;
+ const MIC=$('fcMic');MIC.innerHTML='🎤 Talk';MIC.classList.add('fctalk');const CLIP=$('fcClip');
+ const BT=PANEL.querySelector('.cbtns');const L=document.createElement('div');L.className='fcleft';if(CLIP)L.append(CLIP);L.append(MIC);BT.prepend(L);
+ const VW=$('fcView'),back=PANEL.querySelector('.fcback'),TITLE=H.querySelector('b');
+ // CS-027.1 infer kind from the message (simple keyword rule; no dropdown)
+ const infer=t=>/\b(bug|broken|error|crash|doesn'?t work|not working|won'?t load|glitch)\b/i.test(t)?'bug':/\b(feedback|i love|love it|suggestion|just wanted to say|great job)\b/i.test(t)?'feedback':'change';
+ const pre=()=>{const t=CI.value.trim();if(t&&!draft){KIND=infer(t);window.__fcKind=KIND}};
+ $('fcSend').addEventListener('click',pre,true);CI.addEventListener('keydown',e=>{if(e.key=='Enter'&&!e.shiftKey)pre()},true);
+ // CS-027.3 plain statuses
+ const ST={got:['Got it','grey'],work:['Working on it','purple'],ready:['Ready for you','amber'],wait:['Waiting to publish','blue'],live:['Live','green'],cancel:['Cancelled','grey'],sent:['Sent','blue']};
+ const STEPS=['got','work','ready','wait','live'];
+ function reqState(q){if(q.kind)return 'sent';const D=apDec()[q.id]||{};const its=q.items.map((it,i)=>{const v=D[i];if(/live/i.test(it.st||'')||/live/i.test(q.status||''))return 'live';if(v&&v.d=='decline')return 'cancel';if(v&&v.d=='approve')return 'wait';if(PV[q.id]||/preview|ready/i.test(it.st||q.status||''))return 'ready';if(/build|progress|working/i.test(it.st||q.status||''))return 'work';return 'got'});
+  for(const s of ['ready','live','wait','work','got'])if(s=='live'?its.every(x=>x=='live'||x=='cancel')&&its.includes('live'):its.includes(s))return s;return its.every(x=>x=='cancel')?'cancel':'got'}
+ window.fcReqState=reqState;
+ const FMAP={pending:['ready'],approved:['wait'],declined:['cancel'],live:['live']};
+ // CS-021 publish lock (client-side; server lock needs CS-012 backend)
+ const LK='fc_publock',lock=()=>{try{return JSON.parse(localStorage.getItem(LK)||'null')}catch(e){return null}};
+ const approvedKeys=()=>{const o=[];const D=apDec();Object.keys(D).forEach(id=>Object.keys(D[id]||{}).forEach(i=>{if(D[id][i].d=='approve'&&!(lock()&&lock().keys.includes(id+'#'+i)))o.push(id+'#'+i)}));return o};
+ function chkLock(){const k=lock();if(!k)return null;const R=reqs();const done=k.keys.every(x=>{const [id,i]=x.split('#');const q=R.find(r=>r.id==id);return q&&(/live/i.test((q.items[i]||{}).st||'')||/live/i.test(q.status||''))});if(done){localStorage.removeItem(LK);return null}return k}
+ apPub=function(retry){const k0=chkLock();if(k0&&!retry)return;const keys=retry&&k0?k0.keys:approvedKeys();if(!keys.length)return;const batch=retry&&k0?k0.batch:'PUB-'+Date.now().toString(36).toUpperCase();
+  const k={batch,keys,at:retry&&k0?k0.at:Date.now(),state:'sending'};localStorage.setItem(LK,JSON.stringify(k));const Lg=pubLog();const ent={at:Date.now(),n:keys.length,by:'owner',state:'Publishing all '+keys.length+' together…'};Lg.unshift(ent);const sv=()=>localStorage.setItem('fc_publog',JSON.stringify(Lg.slice(0,50)));sv();rList();
+  const fd={_subject:(TESTM?'[OWNER TEST] ':'')+'[PUBLISH_APPROVED] FlashDash — '+SITE,_template:'table',_captcha:'false',action:'PUBLISH_APPROVED',batch_id:batch,idempotency_key:batch,items:keys.join(', '),count:keys.length,mode:'one deploy for all approved items',business:SITE,page:location.href};
+  window.__pubPending=fd;Promise.resolve().then(()=>fcPost(fd)).then(x=>{const ok=x&&(x.ok||x.status==200||x.status=='loaded');const kk=lock();if(kk){kk.state=ok?'queued':'failed';localStorage.setItem(LK,JSON.stringify(kk))}ent.state=ok?'Publishing — usually about 15 minutes':'Didn’t go through';sv();rList()}).catch(()=>{const kk=lock();if(kk){kk.state='failed';localStorage.setItem(LK,JSON.stringify(kk))}ent.state='Didn’t go through';sv();rList()})};
+ // CS-025 merged My requests
+ let FILT='all';const open={};
+ const day=a=>new Date(a).toLocaleDateString([],{month:'short',day:'numeric'});
+ const short=t=>t.length>70?t.slice(0,68)+'…':t;
+ function steps(s){const i=STEPS.indexOf(s);return `<div class="fcsteps">${STEPS.map((x,j)=>`<span class="${j<i?'done':j==i?'cur':''}">${j<i?'✓ ':''}${ST[x][0]}</span>`).join('<i>›</i>')}</div>`}
+ function row(q,lk){const s=reqState(q),[w,c]=ST[s],lv=open[q.id]||0,D=apDec()[q.id]||{};
+  const det=lv?`<div class="fcdet"><ul>${q.items.map((it,i)=>{const v=D[i],pend=!v&&s!='live'&&(PV[q.id]||/preview|ready/i.test(it.st||q.status||''));return `<li><span>${esc(it.t)}</span>${q.kind?'':pend?`<span class="fcia"><button class="pri" data-d="approve" data-id="${esc(q.id)}" data-i="${i}" ${lk?'disabled':''}>Approve</button><button class="sec" data-d="decline" data-id="${esc(q.id)}" data-i="${i}" ${lk?'disabled':''}>Decline</button><button class="sec" data-fb="${esc(q.id)}" data-t="${esc(it.t)}">Give more feedback</button></span>`:v?`<span class="fcia"><small class="note">${v.d=='approve'?'Approved':'Cancelled'}</small>${lk?'':`<button class="fclink" data-d="undo" data-id="${esc(q.id)}" data-i="${i}">Undo</button>`}</span>`:''}</li>`}).join('')}</ul>${q.kind?'':steps(s=='cancel'?'got':s)}${lv==1&&!q.kind?`<button class="fclink fcshow" data-ph="${esc(q.id)}">Show photos</button>`:''}${lv==2?`<div class="fcphotos">${pvHTML(q.id)||'<div class="note">No photos for this one yet.</div>'}</div>`:''}</div>`:'';
+  return `<div class="fcrow lv${lv}" data-id="${esc(q.id)}"><button type="button" class="fcrowh" aria-expanded="${!!lv}"><code>${esc(q.id)}</code><span class="fct">${esc(short(q.items[0]?q.items[0].t:''))}${q.items.length>1?` <small class="note">+${q.items.length-1}</small>`:''}</span><span class="fcd">${day(q.at)}</span><span class="fcw fcw-${c}">${w}</span></button>${det}</div>`}
+ let shown=0;const PAGE=20;
+ function filtered(){const R=reqs();return FILT=='all'?R:R.filter(q=>FMAP[FILT].includes(reqState(q)))}
+ function rList(){const lk=chkLock(),R=reqs(),n=approvedKeys().length,C={pending:0,approved:0,declined:0,live:0};R.forEach(q=>{const s=reqState(q);for(const f in FMAP)if(FMAP[f].includes(s))C[f]++});const Lg=pubLog();
+  const bar=lk?(lk.state=='failed'?`<div class="appub fcpub"><div><b>Something hiccuped — try again</b><small>Your ${lk.keys.length} approved change${lk.keys.length==1?'':'s'} weren’t sent yet.</small></div><button class="appubbtn" id="fcRetry">Retry</button></div>`:`<div class="appub fcpub fcbusy"><div><b>Publishing ${lk.keys.length} change${lk.keys.length==1?'':'s'} together…</b><small>Started ${new Date(lk.at).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}. Usually about 15 minutes. Buttons unlock when it’s live.</small><div class="fcprog"><span></span></div></div><button class="appubbtn" id="apPub" disabled>Publishing…</button></div>`):`<div class="appub fcpub"><div><b>Update my site now</b><small>${n?`Publishes all ${n} approved change${n==1?'':'s'} together.`:'Approve a change to turn this on.'}</small></div><button class="appubbtn" id="apPub" ${n?'':'disabled'}>Update my site now</button></div>`;
+  const list=filtered();shown=Math.min(Math.max(shown,PAGE),list.length);
+  VW.innerHTML=`${bar}<div class="fcfilt"><button data-f="all" class="${FILT=='all'?'on':''}">All <span>${R.length}</span></button>${['pending','approved','declined','live'].map(k=>`<button data-f="${k}" class="${k==FILT?'on':''}">${{pending:'Pending',approved:'Approved',declined:'Declined',live:'Live'}[k]} <span>${C[k]}</span></button>`).join('')}</div><div class="fcrows">${list.length?list.slice(0,shown).map(q=>row(q,lk)).join(''):'<div class="note fcempty">Nothing here yet.</div>'}</div>${list.length?`<div class="note fcend">${shown<list.length?'Loading more…':'That’s everything.'}</div>`:''}${Lg.length?`<details class="fcplog"><summary>Publish log (${Lg.length})</summary>${Lg.slice(0,10).map(x=>`<div><small>${esc(new Date(x.at).toLocaleString([],{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}))} · ${x.n} change${x.n==1?'':'s'} · ${esc(x.state)}</small></div>`).join('')}</details>`:''}<div class="fcfoot"><button class="pri" data-a="new">+ New request</button></div>`;try{fcZoom(VW)}catch(e){}}
+ window.fcRList=rList;
+ VW.addEventListener('scroll',()=>{if(PANEL.dataset.v=='list'&&VW.scrollTop+VW.clientHeight>VW.scrollHeight-120&&shown<filtered().length){const st=VW.scrollTop;shown+=PAGE;rList();VW.scrollTop=st}});
+ // community (CS-024)
+ function rCom(){const Vt=(()=>{try{return JSON.parse(localStorage.getItem('fc_votes')||'{}')}catch(e){return{}}})();const all=reqs().filter(q=>!q.kind&&!q.wo).flatMap(q=>q.items.map((it,i)=>({k:q.id+'#'+i,t:it.t,id:q.id,at:q.at,s:reqState(q),live:/live/i.test(it.st||q.status),v:Vt[q.id+'#'+i]?1:0})));
+  const op=all.filter(x=>!x.live).sort((a,b)=>b.v-a.v||new Date(a.at)-new Date(b.at)),sh=all.filter(x=>x.live),tr=op.slice(0,3);
+  VW.innerHTML=`<div class="fccomi">📋 <b>Community</b> — vote on what gets built next for ${esc(SITE)}. One 👍 per person per request; tap again to take it back.</div>${sh.length?`<div class="fcship"><b>✅ Recently shipped — you asked, we built it</b>${sh.slice(0,5).map(x=>`<div class="fcl"><span>${esc(x.t)}</span><small class="note">Shipped ${day(x.at)}</small></div>`).join('')}</div>`:''}${tr.length?`<div class="fctrend"><b>🔥 Trending requests</b>${tr.map(x=>`<div class="fcl"><span>${esc(x.t)}</span><small class="note">${x.v} ${x.v==1?'person wants':'people want'} this</small></div>`).join('')}</div>`:''}<b class="fch3">All open requests, ranked</b><div class="note">Ranked by votes and how long they’ve waited</div>${op.length?op.map((x,r)=>`<div class="fcrank"><b>#${r+1}</b><span><b>${esc(x.t)}</b><small class="note">${esc(x.id)} · ${ST[x.s][0]}</small></span><button class="sec fcvote${x.v?' on':''}" data-v="${esc(x.k)}">👍 ${x.v}</button></div>`).join(''):'<div class="note fcempty">Nothing here yet.</div>'}<div class="fcfoot"><button class="sec" data-a="mine">My requests</button><button class="pri" data-a="new">Ask for a change</button></div>`}
+ // view switching (fixed window; CS-026)
+ const v0=window.fcView;window.fcView=function(v){PANEL.dataset.v=v;TITLE.textContent='Ask for a change';H.querySelectorAll('.fclnk').forEach(b=>b.classList.toggle('on',(b.dataset.c=='list'&&v=='list')||(b.dataset.c=='board'&&v=='community')));if(v=='list'){rList();VW.scrollTop=0}else if(v=='community'){rCom();VW.scrollTop=0}try{fcBadge()}catch(e){}};
+ list=()=>fcView('list');reqBoard=()=>fcView('community');
+ VW.addEventListener('click',e=>{const t=e.target;e.stopImmediatePropagation();
+  if(t.closest('[data-a=new]')){fcView('chat');hello();return}if(t.closest('[data-a=mine]')){fcView('list');return}
+  const vb=t.closest('[data-v]');if(vb&&PANEL.dataset.v=='community'){const X=(()=>{try{return JSON.parse(localStorage.getItem('fc_votes')||'{}')}catch(_){return{}}})(),k=vb.dataset.v;if(X[k])delete X[k];else X[k]=1;localStorage.setItem('fc_votes',JSON.stringify(X));rCom();return}
+  if(t.dataset.f){FILT=t.dataset.f;shown=0;rList();return}
+  if(t.id=='fcRetry'){apPub(true);return}if(t.id=='apPub'&&!t.disabled){apPub();return}
+  if(t.dataset.ph){open[t.dataset.ph]=2;rList();return}
+  if(t.dataset.d&&!t.disabled){if(chkLock())return;const X=apDec(),k=t.dataset.id;X[k]=X[k]||{};if(t.dataset.d=='undo')delete X[k][t.dataset.i];else X[k][t.dataset.i]={d:t.dataset.d,at:new Date().toISOString()};localStorage.setItem('fc_ap_dec',JSON.stringify(X));rList();try{fcBadge()}catch(_){}return}
+  if(t.dataset.fb){fcView('chat');CI.value='More feedback on '+t.dataset.fb+' ("'+t.dataset.t+'"): ';fit();CI.focus();return}
+  const h=t.closest('.fcrowh');if(h){const id=h.parentNode.dataset.id;open[id]=((open[id]||0)+1)%3;if(open[id]==2&&!PV[id]&&!(JSON.parse(localStorage.getItem('fc_before')||'{}')[id]))open[id]=0;rList()}},true);
+ // CS-027.2 summary: Approve + Change something (opens mic); cancel lives inside
+ const fixDraft=d=>{const ok=d.querySelector('[data-a=ok]');if(ok&&ok.textContent!='Approve')ok.textContent='Approve';const ed=d.querySelector('[data-a=edit]');if(ed&&ed.textContent!='Change something')ed.textContent='Change something'};
+ new MutationObserver(()=>{CB.querySelectorAll('.draft').forEach(fixDraft);CB.querySelectorAll('.fcfix [data-a=over]').forEach(b=>{if(!b.classList.contains('fclink')){b.className='fclink';b.textContent='Cancel this request'}})}).observe(CB,{childList:true,subtree:true});
+ CB.addEventListener('click',e=>{if(e.target.dataset&&e.target.dataset.a=='edit')setTimeout(()=>{try{if(!rec)MIC.click()}catch(_){}},50)});
+ // CS-027.4 friendly errors: rewrite any "Error"-style bot text
+ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType==1&&n.classList.contains('msg')&&/\b(error|failed)\b/i.test(n.textContent)&&!n.classList.contains('me')&&!n.querySelector('.fcretry')){n.classList.add('fcerr');n.innerHTML='Something hiccuped — try again. <button class="sec fcretry">Retry</button>';n.querySelector('.fcretry').onclick=()=>{n.remove();const last=[...CB.querySelectorAll('.msg.me')].pop();if(last&&!CI.value){CI.value=last.textContent;fit()}$('fcSend').click()}}}))).observe(CB,{childList:true});
+ $('fcChatB').addEventListener('click',()=>{TITLE.textContent='Ask for a change';H.querySelectorAll('.fclnk').forEach(b=>b.classList.remove('on'))});
+ PANEL.dataset.v='chat';
+})();
 })();// CS-006: press-and-hold (desktop 250ms / touch 400ms) then drag the ⚡ side tab vertically; clamped to viewport; saved per device.
 (function(){const b=document.getElementById('fcChatB');if(!b)return;const K='dpb_fc_tab_y';
  const clamp=y=>Math.max(8+b.offsetHeight/2,Math.min(innerHeight-8-b.offsetHeight/2,y));
