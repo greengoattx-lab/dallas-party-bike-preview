@@ -163,3 +163,42 @@ body.dark #fcChat .cseg{background:#2a2a33}body.dark #fcChat .cseg button{color:
 @media(max-width:600px){#fcChat .ch{padding:10px 12px!important;gap:6px}#fcChat .ch b{font-size:16px;white-space:nowrap}#fcChat .ch .fcsite{display:none}#fcChat .ch button{font-size:13px;white-space:nowrap}}
 @media(max-width:600px){#fcChat .ch{gap:2px}#fcChat .ch b{font-size:15px;margin-right:4px}#fcChat .ch button{font-size:12px;padding:4px 3px!important}#fcChat .ch .fcx{margin-left:0;flex:none}#fcChat .cbtns{justify-content:space-between!important}}
 @media(max-width:600px){#fcChat .ch .fcico{display:none}}#fcChat:not([data-v=chat]) #fcIncl{display:none!important}
+/* CS-022 follow-up: match CRM live changechat.css (CRM main 23ef594) look + layout; Party Bike red only on buttons/badges */
+#fcChat{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif!important;font-size:14px;color:#1d2329!important;width:min(760px,calc(100vw - 40px))!important;max-height:min(88vh,900px)!important;height:auto!important;border-radius:14px!important;box-shadow:0 0 0 100vmax rgba(15,20,25,.55),0 18px 50px rgba(0,0,0,.35)!important;display:flex!important;flex-direction:column}
+#fcChat button,#fcChat textarea,#fcChat input,#fcChat select{font-family:inherit}
+#fcChat:not([data-v=chat]){height:min(88vh,900px)!important}
+#fcChat[data-v=chat] #fcCB{flex:0 1 auto!important;min-height:0;overflow:auto;height:auto!important;max-height:none}
+#fcChat .ch{padding:14px 18px!important;border-bottom:1px solid #e5e8eb!important;font-size:17px;gap:0!important}
+#fcChat .ch b{font-size:17px!important;font-weight:700;color:#1d2329}
+#fcChat .ch .fcsite{margin-left:10px;font-size:12px;background:#fdecea;color:var(--fcb);border-radius:10px;padding:2px 8px;font-weight:400}
+#fcChat .ch button{color:#1f6fb2!important;font-size:13px!important;padding:2px 4px!important}
+#fcChat .ch .fcx{font-size:26px!important;line-height:1;color:#555!important;margin-left:8px!important;padding:0 2px!important}
+#fcChat .cincl{margin:8px 22px 0!important}
+#fcChat #fcCB{padding:20px 22px 0!important;display:flex;flex-direction:column;gap:14px}
+#fcChat #fcCB .msg{margin:0}
+#fcChat #fcCB .msg.bot{background:#f2f5f8;border-radius:12px 12px 12px 3px;padding:10px 13px;align-self:flex-start;max-width:90%;color:#1d2329}
+#fcChat #fcCB>.msg.bot:first-child{font-size:17px!important;font-weight:600!important;padding:2px 0!important;margin:0!important;background:none!important}
+#fcChat #fcCB .msg.user{background:var(--fcb);color:#fff;border-radius:14px 14px 4px 14px;padding:10px 12px;align-self:flex-end;max-width:85%}
+#fcChat .ci{padding:14px 22px 20px!important;display:flex;flex-direction:column;gap:14px}
+#fcChat .ci textarea{display:block;width:100%;box-sizing:border-box;min-height:64px!important;max-height:160px;resize:vertical;font-size:15px;padding:10px!important;border:1px solid #cfd6dc!important;border-radius:10px!important;box-shadow:none!important;outline:0}
+#fcChat .ci textarea:focus{border-color:#1d2329!important;box-shadow:0 0 0 1px #1d2329!important}
+#fcChat .cbtns{margin-top:0!important;gap:8px}
+#fcChat .fcleft{gap:8px}
+#fcChat .cbtns .fcclip{width:38px!important;height:38px!important;border:1px solid #cfd6dc!important;font-size:17px!important;color:#1d2329}
+#fcChat .cbtns .fctalk{border:1px solid #cfd6dc!important;border-radius:18px!important;padding:7px 13px!important;font-size:13px!important;font-weight:500;color:#1d2329!important}
+#fcChat .cbtns .fctalk.rec{background:#c62828!important;color:#fff!important;border-color:#c62828!important}
+#fcChat #fcSend,#fcChat .fcfoot .pri,#fcChat .fcia .pri{background:var(--fcb)!important;color:#fff!important;border:0!important;border-radius:8px!important;padding:9px 16px!important;font-weight:600!important;font-size:13.3px}
+#fcChat .fcia .sec,#fcChat .fcfoot .sec{border:1px solid #cfd6dc!important;border-radius:8px;padding:9px 14px;font-weight:500;color:#1d2329}
+#fcChat .fcrow,#fcChat .fcrank{border-color:#e1e5e8!important;border-radius:9px!important}
+#fcChat .fcrowh{padding:9px 11px!important}
+#fcChat .fccomi{background:#f2f5f8}
+#fcChat .fcship{background:#eaf6ea;border-color:#b9dcb9}#fcChat .fctrend{background:#fff4e6;border-color:#f6cf9c}
+#fcChat .fcvote{border:1px solid #cfd6dc!important;background:#fff!important;color:#1f2937!important;border-radius:16px!important;padding:4px 10px!important;font-size:13px}
+#fcChat .fcvote.on{background:var(--fcb)!important;border-color:var(--fcb)!important;color:#fff!important}
+#fcChat:not([data-v=chat]) .fcview{padding:16px 22px!important}
+@media(max-width:640px){#fcChat{width:100vw!important;height:100vh!important;height:100dvh!important;max-height:none!important;left:0!important;top:0!important;transform:none!important;border-radius:0!important;box-shadow:none!important}#fcChat[data-v=chat] #fcCB{flex:1 1 auto!important}#fcChat .ch .fcsite{display:none}#fcChat .ch{padding:12px 12px!important}}
+@media(max-width:420px){#fcChat .ch b{font-size:15px!important}#fcChat .ch button{font-size:12px!important;padding:2px 3px!important}#fcChat .ch .fcx{font-size:24px!important;margin-left:2px!important}}
+#fcChat .ch b{flex:none!important;margin:0!important}#fcChat .cbtns{justify-content:flex-start!important;flex-direction:row!important}#fcChat .cbtns .fcleft{order:0;margin-right:auto!important}#fcChat .cbtns #fcSend{order:9;margin-left:auto!important}
+@media(max-width:640px){#fcChat[data-v=chat] #fcCB{flex:0 1 auto!important}#fcChat .ch .fcico{display:inline!important}}
+@media(max-width:380px){#fcChat .ch b{font-size:14px!important}#fcChat .ch button{font-size:11.5px!important;padding:2px 2px!important}}
+@media(max-width:640px){#fcChat:not([data-v=chat]){height:100vh!important;height:100dvh!important}}

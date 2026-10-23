@@ -5,7 +5,7 @@ async function sha(t){const b=await crypto.subtle.digest('SHA-256',new TextEncod
 /* CS-023: per-site chat config + the ONE switch point for the shared, CRM-hosted chatbot.
    When the shared file goes live, set sharedScript/sharedCss to its real URLs (from Chris/CRM). Leave them '' to use this site's local copy.
    Never put API keys or secrets here; this file is public. */
-window.FLASHCHAT_CONFIG=window.FLASHCHAT_CONFIG||{siteId:'partybike',siteName:'Dallas Party Bike',brandColor:'#D7261E',flashes:true,
+window.FLASHCHAT_CONFIG=window.FLASHCHAT_CONFIG||{siteId:'dpb-site',siteName:'Dallas Party Bike',brandColor:'#D7261E',flashes:true,
  endpoints:{chatAi:'/api/chat-ai',approvals:''},
  sharedScript:'',sharedCss:''};
 function loadChat(){if(document.getElementById('fcChatB'))return;const C=window.FLASHCHAT_CONFIG;const l=document.createElement('link');l.rel='stylesheet';l.href=C.sharedCss||'css/flash-chat.css';document.head.appendChild(l);const s=document.createElement('script');s.src=C.sharedScript||'js/flash-chat.js';document.body.appendChild(s);
