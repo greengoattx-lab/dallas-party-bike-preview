@@ -266,10 +266,11 @@ const resetInput=()=>{recGen++;if(rec){const r=rec;rec=null;r.onresult=null;try{
 const fit=()=>{CI.style.height='auto';const mx=Math.max(64,Math.min(150,Math.round(PANEL.clientHeight*.6)));CI.style.height=Math.max(64,Math.min(CI.scrollHeight+2,mx))+'px';CI.scrollTop=CI.scrollHeight};CI.addEventListener('input',fit);window.fcFit=fit;
 const RL=$('fcRecL');let rt=null,t0=0;const tick=()=>{const s=Math.floor((Date.now()-t0)/1000);RL.innerHTML='<span class="dot">●</span> Listening… tap 🎤 to stop · '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 const recOn=()=>{t0=Date.now();RL.className='recl on';tick();rt=setInterval(tick,500);$('fcMic').classList.add('rec');$('fcMic').title='Stop';CI.classList.add('recin')};
-const recOff=()=>{clearInterval(rt);$('fcMic').classList.remove('rec');$('fcMic').title='Speak';CI.classList.remove('recin');RL.className='recl ok';RL.textContent='✓ Got it';setTimeout(()=>{if(!RL.classList.contains('on'))RL.className='recl'},1800)};
+const recOff=()=>{clearInterval(rt);$('fcMic').classList.remove('rec');$('fcMic').title=SR?'Speak':'Voice not supported in this browser';CI.classList.remove('recin');RL.className='recl ok';RL.textContent='✓ Got it';setTimeout(()=>{if(!RL.classList.contains('on'))RL.className='recl'},1800)};
 window.fcRecDemo=(on,txt)=>{if(txt!=null){CI.value=txt;fit()}on?recOn():recOff()};
 // CS-008: dictation keeps going across short pauses (auto-restart), appends finals, shows live interim text;
 // stops on tap, after ~3 s of silence, or at 3:00.
+/* CS-014: never hide the mic; grey it out when speech recognition is unsupported */if(!SR){const m=$('fcMic');m.classList.add('nosr');m.title='Voice not supported in this browser';m.setAttribute('aria-disabled','true')}
 const SILENCE=3000;let micT=0;window.__fcSilence=SILENCE;
 $('fcMic').onclick=()=>{if(!SR){add('Voice input isn\'t supported in this browser — please type your request (Chrome, Edge or Safari support the mic).');return}
  if(rec){window.fcStopRec();return}const g=recGen,base=CI.value?CI.value.replace(/\s*$/,' '):'';let fin='',heard=Date.now();const t0m=Date.now();
