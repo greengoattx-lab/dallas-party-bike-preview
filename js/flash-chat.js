@@ -171,7 +171,7 @@ function reuse(t){const q=t.toLowerCase().trim();if(window.__haveQ==q&&Date.now(
  const rf=d.querySelector('[data-rself]');if(rf)rf.onclick=()=>{window.__fcAddTile(a.id);window.__fcRender();rf.disabled=true;add('Added <b>'+esc(a.nm)+'</b> to your board. No Flash used.');setTimeout(()=>hi(a.id),300)};
  d.querySelector('[data-fresh]').onclick=()=>{d.querySelectorAll('button').forEach(x=>x.disabled=true);add('<small class="note">Got it, I\'ll look at it fresh.</small>');window.__skipReuse=1;CI.value=t;send()};return true}
 // CS-009: AI from the shared CRM endpoint (no key in the browser). Falls back to the local pattern logic on any failure.
-const AI_URL='https://green-goat-app.onrender.com/api/chat-ai',AI_SITE='dpb-site';let aiBusy=0;
+const AI_URL='https://green-goat-app.onrender.com/api/chat-ai',AI_SITE='partybike';let aiBusy=0;
 function aiSys(){const D=window.DPB||{},B=D.business||{};const pk=(D.packages||[]).map(p=>`- ${p.name}: from $${p.priceFrom} ${p.priceUnit||''}, ${p.durationHrs||'?'} hrs, ${p.minRiders||'?'}-${p.maxRiders||'?'} riders. ${p.blurb||''}`).join('\n');
  const po=(D.policies||[]).map(p=>`- ${p.t}: ${p.d}`).join('\n'),fq=(D.faq||[]).map(f=>`Q: ${f[0]||f.q}\nA: ${f[1]||f.a}`).join('\n');
  return `You are the owner assistant inside the Dallas Party Bike website's change-request chat. The person chatting is the business owner; they use this chat to ask questions or request changes to their website (which the FlashDash team makes).
