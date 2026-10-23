@@ -2,7 +2,7 @@ head=lambda t,d:f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><
 <title>{t}</title><meta name="description" content="{d}"><link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css"><script src="js/data.js"></script></head><body>'''
-tail='<script src="js/layout.js"></script>{js}</body></html>'
+tail='<script src="js/layout.js"></script><script src="js/owner.js"></script>{js}</body></html>'
 def ph(title,sub): return f'<div class="page-hero"><div class="wrap"><span class="eyebrow">Dallas Party Bike</span><h1>{title}</h1><p>{sub}</p></div></div>'
 pages={}
 pages['index.html']=("Dallas Party Bike | The Most Fun Thing to Do in Dallas","Pedal-powered pub crawls and private party bike rides in Deep Ellum, Dallas.",'''

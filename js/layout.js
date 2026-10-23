@@ -5,7 +5,7 @@ document.body.insertAdjacentHTML('afterbegin',`<header class="top"><div class="w
 <div class="act"><div class="login" id="login"><button class="loginbtn" aria-haspopup="true" onclick="this.parentNode.classList.toggle('open')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Log in<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><div class="login-menu">
 <a href="${base}/portal?tenant=${DPB.tenant.id}">🎉 Customer<small>Manage booking, waivers, receipts</small></a>
 <a href="${base}/crew?tenant=${DPB.tenant.id}">🚲 Crew<small>Today's rides, check-ins, tips</small></a>
-<a href="${base}/demo.html?tenant=${DPB.tenant.id}">📊 Owner<small>FlashDash dashboard</small></a></div></div>
+<a href="#owner" onclick="dpbOwnerLogin(event)">📊 Owner<small>FlashDash dashboard</small></a></div></div>
 <a class="btn sm book" href="book.html">Book now</a><button class="burger" onclick="document.getElementById('menu').classList.toggle('show')">☰</button></div></div></header>`);
 document.body.insertAdjacentHTML('beforeend',`<div class="mobile-cta"><a class="btn" href="book.html">🚲 Book your ride</a></div>
 <footer><div class="wrap"><div class="cols"><div><img src="assets/logo.png" alt="" style="height:54px;margin-bottom:12px"><p>${B.tagline}. Pedal-powered pub crawls & private parties in Deep Ellum.</p></div>
