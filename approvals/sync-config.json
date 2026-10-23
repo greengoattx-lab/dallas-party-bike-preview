@@ -1,0 +1,9 @@
+{
+  "enabled": false,
+  "note": "CS-012 mirror to the Approvals page. OFF until the Approvals intake is live AND Chris approves. Flip to true only then. The API key is NEVER stored here or in git: set BOT_API_KEY in the environment of the box job that runs tools/approvals-sync.mjs.",
+  "base": "https://approvals-qjt7.onrender.com",
+  "site": "partybike",
+  "siteLabel": "Dallas Party Bike",
+  "scope": "customer",
+  "publicBase": "https://greengoattx-lab.github.io/dallas-party-bike-preview/"
+}
