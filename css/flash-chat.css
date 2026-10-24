@@ -227,3 +227,12 @@ body.dark #fcChat .cseg{background:#2a2a33}body.dark #fcChat .cseg button{color:
 #fcChat .msg.draft .acts{flex-wrap:wrap!important}#fcChat .msg.draft .acts button{padding:0 12px!important;font-size:13px!important}
 #fcChat .fcrowh{min-height:44px}#fcChat label.yn{min-height:44px;align-items:center}}
 #fcChat .ch .fclnk{height:30px;box-sizing:border-box;padding-top:0!important;padding-bottom:0!important}@media(max-width:599px){#fcChat .ch .fclnk{height:44px}}
+/* CS-036..038 */
+#fcChat .ch b[hidden]{display:none}
+#fcChat .fcrowh .fct{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+#fcChat .fcrowh .fctt{font-weight:600}
+#fcChat .fcid{display:block;font-size:11px;font-weight:400;color:#9aa0a6;font-family:inherit;background:none;margin-top:2px}
+#fcChat .fcrow.fcbug,#fcChat .fcrank.fcbug{background:#fff5f5;box-shadow:inset 3px 0 0 #f3b4b4}
+#fcChat .fclabel{font-size:12px;color:#5f6368;margin:4px 0}
+#fcChat .fclabel.fclbug{color:#b3261e}
+@media(max-width:599px){#fcChat .ch .fclnk .fcl1{display:none}#fcChat .ch .fclnk[data-c=new] .fcico{display:inline!important}}
