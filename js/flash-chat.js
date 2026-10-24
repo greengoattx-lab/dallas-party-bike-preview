@@ -334,7 +334,7 @@ $('fcMic').onclick=()=>{if(!SR){add('Voice input isn\'t supported in this browse
 })();
 /* CS-021..CS-027: CRM-matched layout, Community board, merged My requests, publish lock, plain statuses, fixed size. */
 (function(){const CFG=window.FLASHCHAT_CONFIG||{};const SITE=CFG.siteName||'Dallas Party Bike';
- const H=PANEL.querySelector('.ch');H.innerHTML=`<b>Ask for a change</b><span class="fcsite">${esc(SITE)}</span><span class="fcsp"></span><button data-c="new" class="fclnk" aria-label="New request"><span class="fcico">＋ </span><span class="fcl1">New request</span></button><button data-c="board" class="fclnk"><span class="fcico">📋 </span>Community</button><button data-c="list" class="fclnk"><span class="fcico">📝 </span>My requests<span class="fcmyn" id="fcMyN" hidden></span></button><button data-c="x" class="fcx" aria-label="Close">✕</button>`;
+ const H=PANEL.querySelector('.ch');H.innerHTML=`<b>Ask for a change</b><span class="fcsite">${esc(SITE)}</span><span class="fcsp"></span><button data-c="new" class="fclnk" aria-label="New request"><span class="fcico">＋ </span><span class="fcl1">New</span><span class="fcl2"> request</span></button><button data-c="board" class="fclnk"><span class="fcico">📋 </span>Community</button><button data-c="list" class="fclnk"><span class="fcico">📝 </span>My requests<span class="fcmyn" id="fcMyN" hidden></span></button><button data-c="x" class="fcx" aria-label="Close">✕</button>`;
  PANEL.classList.remove('small');
  SEG.hidden=true;SEG.style.display='none';const TYL=PANEL.querySelector('.ctype');if(TYL)TYL.remove();
  CI.placeholder='Type here, or tap the mic and talk';PH.change=CI.placeholder;
