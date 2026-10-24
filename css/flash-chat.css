@@ -205,3 +205,25 @@ body.dark #fcChat .cseg{background:#2a2a33}body.dark #fcChat .cseg button{color:
 /* CS-022 close fix: panel hidden unless .on; real backdrop (click closes) */
 #fcChat:not(.on){display:none!important}#fcChat.on{display:flex!important}
 #fcBack{position:fixed;inset:0;z-index:7000;background:rgba(15,20,25,.55);display:none}#fcBack.on{display:block}
+/* CS-030 pill header buttons */
+#fcChat .ch .fclnk{display:inline-flex!important;align-items:center;gap:4px;background:#fdecea!important;color:#8E140C!important;border:1px solid #f5c6c2!important;border-radius:999px!important;padding:5px 12px!important;margin-left:8px;font-size:13px!important;font-weight:600;line-height:1.2;text-decoration:none!important;transition:background .15s,border-color .15s}
+#fcChat .ch .fclnk:hover{background:#f9d6d2!important;border-color:#e99891!important}
+#fcChat .ch .fclnk:active{transform:translateY(1px)}
+#fcChat .ch .fclnk.on{background:var(--fcb)!important;border-color:var(--fcb)!important;color:#fff!important}
+#fcChat .ch .fclnk .fcico{display:inline!important}
+#fcChat .ch .fcmyn{min-width:18px;height:18px;border-radius:9px;background:var(--fcb);color:#fff;font:700 11px/18px system-ui;text-align:center;padding:0 5px;box-sizing:border-box;margin-left:2px}#fcChat .ch .fcmyn[hidden]{display:none}#fcChat .ch .fclnk.on .fcmyn{background:#fff;color:var(--fcb)}
+/* CS-031 typing dots */
+#fcChat .fctyping{display:inline-flex;gap:4px;padding:3px 0}#fcChat .fctyping i{width:7px;height:7px;border-radius:50%;background:#8a96a3;animation:fcdot 1.2s infinite ease-in-out}#fcChat .fctyping i:nth-child(2){animation-delay:.15s}#fcChat .fctyping i:nth-child(3){animation-delay:.3s}
+@keyframes fcdot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+/* CS-032 drop highlight */
+#fcChat.fcdrop{outline:3px dashed var(--fcb)!important;outline-offset:-6px}#fcChat.fcdrop::after{content:"Drop image to attach";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(253,236,234,.85);color:#8E140C;font:700 18px system-ui;pointer-events:none;z-index:5}
+/* CS-035 phone tap targets */
+@media(max-width:599px){#fcChat .ch{flex-wrap:wrap;row-gap:8px!important}#fcChat .ch .fcsp{flex:1}
+#fcChat button,#fcChat .ch button,#fcChat select{min-height:44px!important;min-width:44px!important;box-sizing:border-box}
+#fcChat .ch .fclnk{padding:0 12px!important;font-size:13px!important;margin-left:6px}
+#fcChat .cbtns .fcclip{width:44px!important;height:44px!important}#fcChat .cbtns .fctalk{min-height:44px!important}
+#fcChat .fclink{display:inline-flex!important;align-items:center;justify-content:center;padding:0 8px!important}
+#fcChat .acts,#fcChat .fcia,#fcChat .fcfilt,#fcChat .fcfoot,#fcChat .fcleft,#fcChat .cbtns{gap:8px!important;flex-wrap:wrap!important}
+#fcChat .msg.draft .acts{flex-wrap:wrap!important}#fcChat .msg.draft .acts button{padding:0 12px!important;font-size:13px!important}
+#fcChat .fcrowh{min-height:44px}#fcChat label.yn{min-height:44px;align-items:center}}
+#fcChat .ch .fclnk{height:30px;box-sizing:border-box;padding-top:0!important;padding-bottom:0!important}@media(max-width:599px){#fcChat .ch .fclnk{height:44px}}
