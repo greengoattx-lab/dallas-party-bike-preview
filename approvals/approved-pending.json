@@ -1,14 +1,1 @@
-[
-  {
-    "id": "CR-0001",
-    "branch": "cr-0001",
-    "summary": "Gift Cards page: add a $300 gift card option",
-    "approved_at": "2026-10-28T19:23:36.695Z"
-  },
-  {
-    "id": "CR-0002",
-    "branch": "cr-0002",
-    "summary": "Add a log out button: header Log in menu reads \"Owner\" with a Log out option when logged in",
-    "approved_at": "2026-10-28T19:23:33.310Z"
-  }
-]
+[]
