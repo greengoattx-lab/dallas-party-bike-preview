@@ -1,1 +1,40 @@
-{"CR-0001":{"after":[{"label":"Desktop","url":"approvals/previews/CR-0001/desktop.png"},{"label":"Phone","url":"approvals/previews/CR-0001/phone.png"}],"before":[],"pr":"https://github.com/greengoattx-lab/dallas-party-bike-preview/compare/main...cr-0001"},"CR-0002":{"after":[{"label":"Desktop","url":"approvals/previews/CR-0002/desktop.png"},{"label":"Phone","url":"approvals/previews/CR-0002/phone.png"}],"before":[],"pr":"https://github.com/greengoattx-lab/dallas-party-bike-preview/compare/main...cr-0002"}}
+{
+ "CR-0001": {
+  "after": [
+   {
+    "label": "After \u2013 Desktop",
+    "url": "approvals/previews/CR-0001/desktop.png"
+   },
+   {
+    "label": "After \u2013 Phone",
+    "url": "approvals/previews/CR-0001/phone.png"
+   }
+  ],
+  "before": [
+   {
+    "label": "Before (live site now)",
+    "url": "approvals/previews/CR-0001/before.png"
+   }
+  ],
+  "pr": "https://github.com/greengoattx-lab/dallas-party-bike-preview/compare/main...cr-0001"
+ },
+ "CR-0002": {
+  "after": [
+   {
+    "label": "After \u2013 Desktop",
+    "url": "approvals/previews/CR-0002/desktop.png"
+   },
+   {
+    "label": "After \u2013 Phone",
+    "url": "approvals/previews/CR-0002/phone.png"
+   }
+  ],
+  "before": [
+   {
+    "label": "Before (live site now)",
+    "url": "approvals/previews/CR-0002/before.png"
+   }
+  ],
+  "pr": "https://github.com/greengoattx-lab/dallas-party-bike-preview/compare/main...cr-0002"
+ }
+}

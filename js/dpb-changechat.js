@@ -12,8 +12,26 @@
  const isBug=t=>/\b(broken|break(s|ing)?|bug|error|crash(es|ed|ing)?|glitch|not (work|load|show|open|send|sav)\w*|(does|did|is|are|was|were|won|can|could)(n[’']?t| not) (work|load|show|open|send|save|let|go|display|update|submit)\w*|stuck|frozen|freez\w*|blank (page|screen)|wrong (price|time|date|total|number|amount)|404|fail(s|ed|ing)?)\b/i.test(String(t||''));
  const J=(o,st=200)=>new Response(JSON.stringify(o),{status:st,headers:{'content-type':'application/json'}});
  const split=t=>String(t||'').split(/(?<=[.!?])\s+|\n+|\s+(?:and also|also)\s+/i).map(x=>x.trim().replace(/[.]+$/,'')).filter(Boolean).slice(0,12);
+ // CR view: pending change requests live on the server (approvals/QUEUE.md + approvals/previews.json, published to this site), not in this browser.
+ // Merge them into the owner's list so they show up in My requests with status Ready for approval and before/after shots. Local decisions always win.
+ const PVJ={};let svAt=0,svP=null;
+ const stMap=s=>/^\W*(live|published|done)/i.test(s)?'live':/declin|reject/i.test(s)?'declined':/await|ready|pending owner/i.test(s)?'ready':/approved/i.test(s)?'approved':'received';
+ async function srvSync(){if(svP&&Date.now()-svAt<20000)return svP;svAt=Date.now();return svP=(async()=>{try{
+  const [qr,pr]=await Promise.all([of('approvals/QUEUE.md',{cache:'no-store'}),of('approvals/previews.json',{cache:'no-store'})]);
+  if(pr&&pr.ok){const j=await pr.json().catch(()=>null);if(j&&typeof j=='object')Object.keys(j).forEach(k=>{PVJ[k]=j[k]})}
+  if(!qr||!qr.ok)return;const md=await qr.text(),L=all();let ch=false,mx=ld(KEY+'_seq')||0;
+  md.split('\n').forEach(ln=>{const c=ln.split('|').map(x=>x.trim());if(c.length<5||!/^(CR|BUG)-\d+$/.test(c[1]))return;
+   const id=c[1],num=+id.replace(/\D/g,''),st=stMap(c[4]),txt=c[3].replace(/\s*\((?:built on branch|preview)[^)]*\)\s*$/i,'').trim()||c[3];mx=Math.max(mx,num);
+   const v=PVJ[id],scr=v?(v.before||[]).concat(v.after||[]):[];let x=L.find(r=>r.id==id||r.ref==id);
+   if(!x){x={id,ref:id,label:/^BUG/.test(id)?'bug':'change',kind:'change',tile:'',text:txt,bullets:[txt],attachments:[],pointer:null,status:st,created_at:(c[2]||'')+'T12:00:00.000Z',updated_at:now(),server:true,screens:scr};if(st=='ready')x.ready_at=now();L.push(x);ch=true}
+   else{if(scr.length&&(x.screens||[]).length!=scr.length){x.screens=scr;ch=true}
+    if((x.status=='received'&&(st=='ready'||st=='live'))||(x.status=='ready'&&st=='live')||(x.status=='approved'&&st=='live')){x.status=st;if(st=='ready')x.ready_at=now();x.updated_at=now();ch=true}}});
+  if(ch){L.sort((a,b)=>String(b.created_at).localeCompare(String(a.created_at)));put(L)}sv(KEY+'_seq',mx)}catch(e){}})()}
+ const absU=u=>{try{return new URL(u,location.href).href}catch(e){return u}};
+ const shotsOf=id=>{const v=PVJ[id]||{},m=a=>(a||[]).map(s=>typeof s=='string'?{url:absU(s)}:{url:absU(s.url),caption:s.label||s.caption||''});return {before:m(v.before),after:m(v.after),pr_url:v.pr||''}};
  async function route(u,o){const m=(o.method||'GET').toUpperCase();let b={};try{b=o.body?JSON.parse(o.body):{}}catch(e){}
-  const p=u.replace(BASE,'').split('?')[0],L=all(),f=id=>L.find(r=>r.id==id||r.ref==id);let x;
+  const p=u.replace(BASE,'').split('?')[0];if(m=='GET')await srvSync();const L=all(),f=id=>L.find(r=>r.id==id||r.ref==id);let x;
+  {const sm=p.match(/^\/change-requests\/([^/]+)\/shots$/);if(sm){const y=f(sm[1]);return J(shotsOf(y?y.id:sm[1]))}}
   if(p=='/change-requests/config')return J({ai:true});
   if(p=='/change-requests/approval-mode')return J({mode:'here',publish_mode:'site'});
   if(p=='/change-requests/classify')return J({intent:'change'});
@@ -48,6 +66,7 @@
   else{const mm=p.match(/^\/change-requests\/([^/]+)\/(decision|undo)$/);if(mm)send('[DECISION] FlashDash — '+biz+' — '+mm[1],{request_id:mm[1],decision:mm[2]=='undo'?'undo':(b.status||b.decision||''),note:b.note||''})}}catch(e){}}
  window.fetch=(u,o={})=>{if(!(typeof u=='string'&&u.startsWith(BASE)))return of(u,o);return route(u,o).then(r=>{relay(u,o,r);return r})};
  window.CHANGECHAT_CONFIG={site:'partybike',name:'Dallas Party Bike',brand:'#D7261E',apiBase:BASE,endpoints:{},flashes:true,tiles:false,credentials:'omit',headers:{},accent:'#D7261E'};
+ const bac=document.createElement('link');bac.rel='stylesheet';bac.href='css/beforeafter.css';const baj=document.createElement('script');baj.src='js/beforeafter.js';
  const css=document.createElement('link');css.rel='stylesheet';css.href=CCB+'changechat.css';
  const js=document.createElement('script');js.src=CCB+'changechat.js';js.async=true;
  const fail=()=>{window.__ccShared=false;css.remove();if(window.__dpbOpen){window.__dpbOpen=0;const b=document.getElementById('fcChatB');if(b)b.click()}};const tm=setTimeout(fail,8000);
@@ -57,4 +76,4 @@
  const hook=()=>{const B=document.getElementById('fcChatB');if(!B||B._cc)return;B._cc=1;B.addEventListener('click',e=>{if(window.__ccShared&&window.CHANGECHAT){e.stopImmediatePropagation();e.preventDefault();CHANGECHAT.open()}},true);if(CHANGECHAT.tab)CHANGECHAT.tab(B,{open:()=>CHANGECHAT.open()})};
  js.onload=()=>{clearTimeout(tm);if(window.CHANGECHAT&&typeof CHANGECHAT.open=='function'){window.__ccShared=true;document.documentElement.classList.add('ccshared');hook();lo();const P=document.getElementById('fcChat');if(P)P.classList.remove('on');if(window.__dpbOpen)CHANGECHAT.open()}else fail()};
  js.onerror=()=>{clearTimeout(tm);fail()};
- document.head.append(css,js)})();
+ document.head.append(bac,baj,css,js)})();
