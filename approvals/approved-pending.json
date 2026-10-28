@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "id": "CR-0001",
+    "branch": "cr-0001",
+    "summary": "Gift Cards page: add a $300 gift card option",
+    "approved_at": "2026-10-28T19:23:36.695Z"
+  }
+]
